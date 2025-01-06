@@ -76,7 +76,7 @@ class AdaptyFlutterPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
         }
         
         channel = MethodChannel(binaryMessenger, CHANNEL_NAME).also { channel ->
-                channel.setMethodCallHandler(this)
+            channel.setMethodCallHandler(this)
         }
     }
 
