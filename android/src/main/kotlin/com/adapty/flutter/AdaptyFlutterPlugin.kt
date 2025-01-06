@@ -12,6 +12,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.view.FlutterMain.getLookupKeyForAsset
+import android.util.Log
 
 class AdaptyFlutterPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
 
@@ -79,7 +80,6 @@ class AdaptyFlutterPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
                 channel.setMethodCallHandler(this)
             }
         }
-        channel?.let { channel -> callHandler.handleUiEvents(channel) }
     }
 
     private fun onNewActivityPluginBinding(binding: ActivityPluginBinding?) {
