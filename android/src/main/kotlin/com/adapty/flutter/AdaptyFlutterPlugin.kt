@@ -75,10 +75,8 @@ class AdaptyFlutterPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
            Log.d("AdaptyUiFlutterPlugin", "CrossplatformUiHelper.init failed.")
         }
         
-        if (channel == null) {
-            channel = MethodChannel(binaryMessenger, CHANNEL_NAME).also { channel ->
+        channel = MethodChannel(binaryMessenger, CHANNEL_NAME).also { channel ->
                 channel.setMethodCallHandler(this)
-            }
         }
     }
 
