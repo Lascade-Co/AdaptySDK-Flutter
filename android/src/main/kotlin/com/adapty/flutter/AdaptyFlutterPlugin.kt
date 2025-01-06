@@ -65,16 +65,21 @@ class AdaptyFlutterPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
 
     private fun onAttachedToEngine(context: Context, binaryMessenger: BinaryMessenger) {
+        val iniailized = CrossplatformHelper.init(
+            context,
+            { eventName, eventData -> channel?.invokeMethod(eventName, eventData) },
+            { value -> FileLocation.fromAsset(getLookupKeyForAsset(value)) },
+        )
+        if (!iniailized) {
+           Log.d("AdaptyUiFlutterPlugin", "CrossplatformUiHelper.init failed.")
+        }
+        
         if (channel == null) {
             channel = MethodChannel(binaryMessenger, CHANNEL_NAME).also { channel ->
                 channel.setMethodCallHandler(this)
             }
         }
-        CrossplatformHelper.init(
-            context,
-            { eventName, eventData -> channel?.invokeMethod(eventName, eventData) },
-            { value -> FileLocation.fromAsset(getLookupKeyForAsset(value)) },
-        )
+        channel?.let { channel -> callHandler.handleUiEvents(channel) }
     }
 
     private fun onNewActivityPluginBinding(binding: ActivityPluginBinding?) {
